@@ -1,9 +1,38 @@
-apiVersion: v1
-kind: Pod
+---
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: "mypod1"
-
+  labels:
+    app: myweb
+  name: myweb
 spec:
-  containers:
-  - name: "myc1"
-    image: "vimal13/apache-webserver-php"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myweb
+  template:
+    metadata:
+      labels:
+        app: myweb
+    spec:
+      containers:
+      - image: httpd
+        imagePullPolicy: Always
+        name: myweb
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: myweb
+  name: myweb
+spec:
+  ports:
+  - nodePort: 32223
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: myweb
+  type: NodePort
