@@ -1,7 +1,8 @@
 pipeline {
 
 
-  agent { label 'dkubepodagent' }
+  # agent { label 'dkubepodagent' }
+  agent any
 
   stages {
 
