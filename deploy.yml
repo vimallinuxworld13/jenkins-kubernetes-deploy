@@ -1,21 +1,9 @@
----
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  labels:
-    app: myweb
-  name: myweb
+  name: "mypod1"
+
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: myweb
-  template:
-    metadata:
-      labels:
-        app: myweb
-    spec:
-      containers:
-      - image: httpd
-        imagePullPolicy: Always
-        name: myweb
+  containers:
+  - name: "myc1"
+    image: "vimal13/apache-webserver-php"
